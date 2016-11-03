@@ -306,7 +306,8 @@ angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
                             direction = currentYear < selectedYear ? 1 : -1;
                         }
 
-                        if (selectedDate.getTime() <= now.getTime()){ //dont allow selection of previous dates
+                        if (selectedDate.getTime() <= now.getTime() || (currentMonth != selectedMonth)){ //dont allow selection of previous dates
+                          ctrl.refreshView();
                           return;
                         }
 
@@ -325,7 +326,7 @@ angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
                                 }
                             }
                         } else {
-                            ctrl.refreshView();
+                            //ctrl.refreshView();
                         }
 
                         if (scope.timeSelected) {
@@ -343,7 +344,7 @@ angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
                     var days = getDates(startDate, 42);
                     for (var i = 0; i < 42; i++) {
                         days[i] = angular.extend(createDateObject(days[i], ctrl.formatDay), {
-                            secondary: days[i].getMonth() !== month
+                            secondary: days[i].getMonth() !== month || days[i].getTime() <= new Date().getTime()
                         });
                     }
 
@@ -372,7 +373,7 @@ angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
                     return {
                         date: date,
                         label: dateFilter(date, format),
-                        selected: ctrl.compare(date, ctrl.currentCalendarDate) === 0 && (date.getMonth() == now.getMonth()),
+                        selected: ctrl.compare(date, ngModelCtrl.$modelValue) === 0,
                         current: ctrl.compare(date, new Date()) === 0 && (date.getMonth() == now.getMonth())
                     };
                 }
