@@ -306,7 +306,6 @@ angular.module('ui.rCalendar', [])
                         }
 
                         if (selectedDate.getTime() <= now.getTime() || (currentMonth != selectedMonth)){ //dont allow selection of previous dates
-                          ctrl.refreshView();
                           return;
                         }
 

@@ -1035,6 +1035,7 @@ angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
         };
     }]);
 
+
 angular.module("template/rcalendar/calendar.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("template/rcalendar/calendar.html",
     "<div ng-switch=\"calendarMode\">\n" +
