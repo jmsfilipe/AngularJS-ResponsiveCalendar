@@ -103,7 +103,7 @@ angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
                     self.currentCalendarDate = new Date(firstDayInNextMonth - 24 * 60 * 60 * 1000);
                 }
             }
-            ngModelCtrl.$setViewValue(self.currentCalendarDate);
+            //ngModelCtrl.$setViewValue(self.currentCalendarDate);
             self.refreshView();
         };
 
@@ -297,6 +297,7 @@ angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
                         var selectedMonth = selectedDate.getMonth();
                         var selectedYear = selectedDate.getFullYear();
                         var direction = 0;
+                        var now = new Date();
                         if (currentYear === selectedYear) {
                             if (currentMonth !== selectedMonth) {
                                 direction = currentMonth < selectedMonth ? 1 : -1;
@@ -305,7 +306,11 @@ angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
                             direction = currentYear < selectedYear ? 1 : -1;
                         }
 
-                        ctrl.currentCalendarDate = selectedDate;
+                        if (selectedDate.getTime() <= now.getTime()){ //dont allow selection of previous dates
+                          return;
+                        }
+
+                        //ctrl.currentCalendarDate = selectedDate;
                         if (ngModelCtrl) {
                             ngModelCtrl.$setViewValue(selectedDate);
                         }
@@ -363,11 +368,12 @@ angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
                 };
 
                 function createDateObject(date, format) {
+                    var now = new Date();
                     return {
                         date: date,
                         label: dateFilter(date, format),
-                        selected: ctrl.compare(date, ctrl.currentCalendarDate) === 0,
-                        current: ctrl.compare(date, new Date()) === 0
+                        selected: ctrl.compare(date, ctrl.currentCalendarDate) === 0 && (date.getMonth() == now.getMonth()),
+                        current: ctrl.compare(date, new Date()) === 0 && (date.getMonth() == now.getMonth())
                     };
                 }
 
@@ -1027,6 +1033,7 @@ angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
             }
         };
     }]);
+
 angular.module("template/rcalendar/calendar.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("template/rcalendar/calendar.html",
     "<div ng-switch=\"calendarMode\">\n" +
