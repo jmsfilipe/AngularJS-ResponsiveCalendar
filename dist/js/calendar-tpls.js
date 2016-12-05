@@ -423,6 +423,7 @@ angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
                   {
                     var selected = ctrl.compare(selectedDate, rows[row][date].date) === 0;
                     rows[row][date].selected = selected;
+                    rows[row][date].selectedFake = false;
                     if (selected)
                     {
                       scope.selectedDate = rows[row][date];
