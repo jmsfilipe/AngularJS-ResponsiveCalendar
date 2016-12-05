@@ -365,7 +365,7 @@ angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
 
           function highlightEvent(event, args)
           {
-            var selectedDate = args.selectedDate;
+            var selectedDate = new Date(args);
             var rows = scope.rows;
             for (var row = 0; row < 6; row += 1)
             {
