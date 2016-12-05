@@ -403,9 +403,10 @@ angular.module('ui.rCalendar', ['ui.rCalendar.tpls'])
                 direction = currentYear < selectedYear ? 1 : -1;
               }
 
+              $rootScope.$broadcast('calendar:selected-date', selectedDate);
+
               if (selectedDate.getTime() <= now.getTime() || (currentMonth != selectedMonth))
               { //dont allow selection of previous dates
-                $rootScope.$broadcast('calendar:old-date', selectedDate);
                 return;
               }
 
