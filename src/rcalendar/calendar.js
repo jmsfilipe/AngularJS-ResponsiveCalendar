@@ -376,7 +376,7 @@ angular.module('ui.rCalendar', [])
             }
           }
 
-          $rootScope.on('calendar:selected-event', highlightEvent);
+          $rootScope.$on('calendar:selected-event', highlightEvent);
 
           scope.select = function (selectedDate)
           {
@@ -404,7 +404,7 @@ angular.module('ui.rCalendar', [])
 
               if (selectedDate.getTime() <= now.getTime() || (currentMonth != selectedMonth))
               { //dont allow selection of previous dates
-                $rootScope.broadcast('calendar:old-date', selectedDate);
+                $rootScope.$broadcast('calendar:old-date', selectedDate);
                 return;
               }
 
