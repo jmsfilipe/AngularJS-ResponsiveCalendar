@@ -666,6 +666,8 @@ angular.module('ui.rCalendar', [])
 
           ctrl.compare = function (date1, date2)
           {
+            date1 = new Date(date1);
+            date2 = new Date(date2);
             return (new Date(date1.getFullYear(), date1.getMonth(), date1.getDate()) - new Date(date2.getFullYear(), date2.getMonth(), date2.getDate()));
           };
 
